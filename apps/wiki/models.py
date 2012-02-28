@@ -30,16 +30,16 @@ LESSON_TYPE_CHOICE = (
                       ('OTHER','Other'))
 class Wiki(models.Model):
 	user = models.ForeignKey(User)
-	wiki_title = models.CharField('Title',max_length = 40)
-	wiki_description = models.CharField('Description', max_length = 100)
-	wiki_gradeLevel = models.CharField('Grade Level', choices = GRADE_LEVEL_CHOICE, max_length = 20)
-	wiki_subject = models.CharField('Subsject', choices = SUBJECT_CHOICE, max_length = 30)
-	wiki_lessonType = models.CharField('Lesson Type', choices = LESSON_TYPE_CHOICE, max_length = 30)
-	wiki_like = models.IntegerField()
+	title = models.CharField('Title',max_length = 40, primary_key = True)
+	description = models.CharField('Description', max_length = 100)
+	gradeLevel = models.CharField('Grade Level', choices = GRADE_LEVEL_CHOICE, max_length = 20)
+	subject = models.CharField('Subsject', choices = SUBJECT_CHOICE, max_length = 30)
+	lessonType = models.CharField('Lesson Type', choices = LESSON_TYPE_CHOICE, max_length = 30)
+	like = models.IntegerField()
 	def __unicode__(self):
 		return self.wiki_title
 class Section(models.Model):
-	wiki = models.ForeignKey(Wiki)
+	sec_wiki = models.ForeignKey(Wiki)
 	sec_title = models.CharField('Title', max_length = 40)
 	sec_content = models.TextField("Content")
 	def __unicode__(self):

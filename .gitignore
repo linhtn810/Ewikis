@@ -1,3 +1,14 @@
 .DS_Store*
 .DS_Store
 *.pyc
+*.log
+*.sql
+*.sqlite
+*.db
+Thumbs.db
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
