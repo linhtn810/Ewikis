@@ -1,6 +1,6 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
-
 GRADE_LEVEL_CHOICE = (
                       ('KINDERGARTEN','Kindergarten/Pre-K'),
                       ('1G','1st Grade'),
@@ -18,30 +18,100 @@ GRADE_LEVEL_CHOICE = (
                       ('COLLEGE','College'),
                       ('OCCUPTIONAL','Occupational'))
 SUBJECT_CHOICE = (
-                  ('MATH','Math'),
-                  ('ART','Art'),
-                  ('SCIENCE','Science'))
-
+					('ART','Art'),
+					("BUSINESSECOMOMICS",'Business and Economics'),
+					('COMPUTERSCIENCE','Computer Science'),
+					('GEOGRAPHY','Geography'),
+					('History',(
+								('CHINA','China'),
+								('VIETNAM',u'Việt Nam'),
+								('WORLD', 'World'),
+								)
+					),
+					('MUSIC','Music'),
+					('MOVE','Move'),
+					('Math',(
+								('ALEGEBRA','Alegebra'),
+								('ARITHMETIC','Arithmetic'),
+								('CALCULUS', 'Calculus'),
+								('GEOMETRY','Geometry'),
+								('STATISTICS', 'Statistics'),
+								)
+					),
+					('Foreign Language',(
+								('ENGLISH','English'),
+								('VIETNAMESE','Vietnamese'),
+								('CHINESE', 'Chinese'),
+								('SPANISH','Spanish'),
+								)
+					),
+					
+					('Sience',(
+								('BIOLoGY','Biology'),
+								('CHEMISTRY','Chemistry'),
+								('EARTHSICENCE', 'Earth Science'),
+								('PHYSICS','Physics'),
+								('PSYCHOLOGY', 'Psychology'),
+								('MEDICINE','Medicine'),
+								)
+					),
+					('RELIGION','Religion'),
+					('OTHER','Other')
+				)    
 LESSON_TYPE_CHOICE = (
                       ('TEACHER','Teacher Lesson Plan'),
                       ('STUDENT','Student Study Guide'),
                       ('ASSIGNMENT','Assignment/Project'),
                       ('CLASSROOM_INFORMATION','Classroom Information'),
-                      ('OTHER','Other'))
-class Wiki(models.Model):
-	user = models.ForeignKey(User)
-	title = models.CharField('Title',max_length = 40, primary_key = True)
-	description = models.CharField('Description', max_length = 100)
-	gradeLevel = models.CharField('Grade Level', choices = GRADE_LEVEL_CHOICE, max_length = 20)
-	subject = models.CharField('Subsject', choices = SUBJECT_CHOICE, max_length = 30)
-	lessonType = models.CharField('Lesson Type', choices = LESSON_TYPE_CHOICE, max_length = 30)
-	like = models.IntegerField()
-	def __unicode__(self):
-		return self.wiki_title
-class Section(models.Model):
-	sec_wiki = models.ForeignKey(Wiki)
-	sec_title = models.CharField('Title', max_length = 40)
-	sec_content = models.TextField("Content")
-	def __unicode__(self):
-		return self.sec_title
+                	  ('OTHER','Other')
+)
 	
+class Wiki(models.Model):
+	user = models.ForeignKey(User, related_name = 'user')
+	title = models.CharField('Title',max_length = 40)
+	titleid = models.CharField('Title ID',max_length = 40, primary_key = True)
+	description = models.CharField('Description', max_length = 400)
+	gradelevel = models.CharField('Grade Level', choices = GRADE_LEVEL_CHOICE, max_length = 20)
+	subject = models.CharField('Subsject', choices = SUBJECT_CHOICE, max_length = 30)
+	lessontype = models.CharField('Lesson Type', choices = LESSON_TYPE_CHOICE, max_length = 30)
+	like = models.IntegerField(default = 0)
+	userlike = models.ManyToManyField(User,blank=True,null=True)
+	def __unicode__(self):
+		return self.title
+class PageOne(models.Model):
+	parent = models.ForeignKey(Wiki)
+	title = models.CharField('Title', max_length = 40, primary_key = True)
+	titleid = models.CharField('Title ID', max_length = 40)
+	def __unicode__(self):
+		return self.title
+class PageTwo(models.Model):
+	parent = models.ForeignKey(PageOne)
+	title = models.CharField('Title', max_length = 40, primary_key = True)
+	titleid = models.CharField('Title ID', max_length = 40)
+	def __unicode__(self):
+		return self.title
+class Section(models.Model):
+	wiki = models.ManyToManyField(Wiki)
+	pageone = models.ManyToManyField(PageOne)
+	pagetwo = models.ManyToManyField(PageTwo)
+	title = models.CharField('Title', max_length = 40)
+	content = models.TextField("Content")
+	content_markdown = models.TextField("Content Markdown")
+	def __unicode__(self):
+		return self.title
+	def save(self, *args, **kargs):
+		import markdown
+		md = markdown.Markdown(extensions =
+								['wikilinks','mdx_video','urlize','codehilite',
+									'nl2br','addsections','subscript','superscript',
+								],
+							   safe_mode = "escape"
+							  )
+		self.content_markdown = md.convert(self.content)
+		super(Section,self).save(*args, **kargs)
+class Image(models.Model):
+	user = models.ForeignKey(User)
+	title = models.CharField('Title', max_length = 40)
+	photo = models.ImageField(upload_to = 'photos')
+	def __unicode__(self):
+		return self.title

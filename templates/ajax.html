@@ -1,0 +1,27 @@
+<html>
+<head>
+<script type="text/javascript"
+ src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js">
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.fact').bind('click', function () {
+      $.get("/test/"+this.id+"/", function(data) {
+        if (data.fact_type=="T") {
+          guess_result="This fact is true! " + data.fact_note;
+        } else {
+          guess_result="This fact is false! " + data.fact_note;
+        }
+        $('#result')[0].innerHTML=guess_result;
+      });
+   });
+});
+</script>
+</head>
+<body>
+  <div id="1" class="fact">I love bugs</div>
+  <div id="2" class="fact">I love hugs</div>
+  <div id="3" class="fact">I love pugs</div>
+  <div id="result">Click on the lie!</div>
+</body>
+</html>

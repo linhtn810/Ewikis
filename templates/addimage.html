@@ -1,0 +1,11 @@
+{% extends "base.html"%}
+{%block ative2%} "active" {%endblock%}
+{% block content%}
+{% if user == wiki.user%}
+	<h1>Add image</h1>
+	<form action="." method="post" enctype="multipart/form-data">{% csrf_token %}
+	       {{ imageform.as_p }}
+	       <input type="submit" value="Upload" />
+	</form>
+{% endif %}
+{% endblock %}

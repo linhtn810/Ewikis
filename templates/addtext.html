@@ -1,0 +1,11 @@
+{% extends "base.html"%}
+{% block content%}
+	{% if user == wiki.user%}
+     <form name="Add text" action = "." method ='POST'>
+		{% csrf_token %}
+		{{textform.as_p}}
+		<input type="submit" value = "Submit">
+	</form>
+	{% endif %}
+ 
+{% endblock %}
