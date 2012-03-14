@@ -5,7 +5,7 @@ class TextForm(ModelForm):
 		model = Section
 		fields =('title', 'content')
 		widgets = {
-			'content': forms.Textarea(attrs = {'cols':100, 'rows': 20}),
+			'content': forms.Textarea(attrs = {'cols':100, 'rows': 20,'style' : 'resize: none;'}),
 			}
 class CreateWikiForm(ModelForm):
 	class Meta:

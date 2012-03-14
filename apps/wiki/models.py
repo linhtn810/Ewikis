@@ -102,7 +102,7 @@ class Section(models.Model):
 	def save(self, *args, **kargs):
 		import markdown
 		md = markdown.Markdown(extensions =
-								['wikilinks','mdx_video','urlize','codehilite',
+								['wikilinks','mdx_video','urlize',
 									'nl2br','addsections',
 								],
 							   safe_mode = "escape"
