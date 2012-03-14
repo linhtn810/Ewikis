@@ -15,6 +15,7 @@ urlpatterns = patterns('',
 	url(r'^(\w+)/deletewiki/$','apps.wiki.views.deletewiki'),
 	url(r'^wiki/create/$','apps.wiki.views.createwiki'),
 	url(r'^wiki/like/$','apps.wiki.views.likewiki'),
+	url(r'^/',include('apps.wiki.urls'))
 	url(r'^wiki/admin/',include(admin.site.urls)),
 	(r'^static/(?P<path>.*)$','django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 	(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),	
