@@ -1,0 +1,16 @@
+{% extends "base.html"%}
+{% load markup %}
+{% block content %}
+	<div class = "container-fluid">
+	<div class="row-fluid">
+		<div class ="span12">
+	<h1> Edit {{wiki.title}}</h1>
+	<form name="Edit" action = "." method ='POST'>
+		{% csrf_token %}
+		{{textform.as_p}}
+		<input type="submit" value = "Save">
+	</form>
+	</div>
+	</div>
+	</div>
+{% endblock %}
