@@ -15,7 +15,7 @@ def main(request):
 	var = RequestContext(request,{
 		'wiki': wiki,
 	})
-	return render_to_response("index.html", {'wiki': wiki},var)
+	return render_to_response("wiki/index.html", {'wiki': wiki},var)
 
 def wiki(request,title_id):
 	wiki = get_object_or_404(Wiki,pk = title_id)
@@ -24,7 +24,7 @@ def wiki(request,title_id):
 		'wiki': wiki,
 		'section': section,	
 	})
-	return render_to_response('main.html', var)
+	return render_to_response('wiki/main.html', var)
 	
 def addtext(request, title_id):
 	wiki = Wiki.objects.get(pk = title_id)
@@ -44,7 +44,7 @@ def addtext(request, title_id):
 			'textform':textform,
 			'wiki': wiki,	
 			})
-	return render_to_response('addtext.html',var)
+	return render_to_response('wiki/addtext.html',var)
 
 def addimage(request, title_id):
 	wiki = Wiki.objects.get(pk = title_id)
@@ -75,7 +75,7 @@ def addimage(request, title_id):
 		'imageform':imageform,
 		'wiki':wiki,
 		})
-	return render_to_response('addimage.html',var)
+	return render_to_response('wiki/addimage.html',var)
 
 def editsection(request, title_id, sec_id):
 	section = Section.objects.get(pk = sec_id)
@@ -94,7 +94,7 @@ def editsection(request, title_id, sec_id):
 	var = RequestContext(request,{
 			'textform':textform,
 			'wiki': wiki})
-	return render_to_response('edit.html',var)
+	return render_to_response('wiki/edit.html',var)
 
 def deletesection(request, title_id):
 	if 'id' in request.GET:
@@ -131,7 +131,7 @@ def createwiki(request):
 	else:
 		form = CreateWikiForm()
 	var = RequestContext(request,{'form':form,})
-	return render_to_response('createwiki.html',var)
+	return render_to_response('wiki/createwiki.html',var)
 	
 def editwiki(request, title_id):
 	wiki = Wiki.objects.get(pk = title_id)
@@ -165,7 +165,7 @@ def editwiki(request, title_id):
 	else:
 		form = CreateWikiForm(instance = Wiki.objects.get(pk = title_id))
 	var = RequestContext(request,{'form':form,'wiki': wiki})
-	return render_to_response('createwiki.html',var)
+	return render_to_response('wiki/createwiki.html',var)
 	
 def deletewiki(request, title_id):
 	wiki = Wiki.objects.get(pk = title_id)
