@@ -95,7 +95,7 @@ class Section(models.Model):
 	pageone = models.ManyToManyField(PageOne)
 	pagetwo = models.ManyToManyField(PageTwo)
 	title = models.CharField('Title', max_length = 40)
-	content = models.TextField("Content")
+	content = models.TextField("Content",error_messages={'blank': 'NotNull','required': "My custom error"})
 	content_markdown = models.TextField("Content Markdown")
 	def __unicode__(self):
 		return self.title

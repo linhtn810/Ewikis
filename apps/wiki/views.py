@@ -78,17 +78,19 @@ def addimage(request, title_id):
 	return render_to_response('wiki/addimage.html',var)
 
 def editsection(request, title_id, sec_id):
-	section = Section.objects.get(pk = sec_id)
-	wiki = Wiki.objects.get(pk = title_id)
+	section = get_object_or_404(Section, pk = sec_id)
+	wiki = get_object_or_404(Wiki, pk = title_id)
 	if request.method == 'POST':
 		textform = TextForm(request.POST)
-		if textform.is_valid():
+		if not textform.is_valid():
+			message = 'Ok'
+		else:
 			inp = textform.cleaned_data
 			section.title = inp['title']
 			section.content = inp['content']
 			section.content_markdown = inp['content']
 			section.save()
-		return HttpResponseRedirect("/"+ title_id)
+			return HttpResponseRedirect("/"+ title_id)
 	else: 
 		textform = TextForm(instance=Section.objects.get(pk = sec_id))
 	var = RequestContext(request,{
@@ -115,7 +117,6 @@ def createwiki(request):
 			for check in check_titleid:
 				if title_id == check.titleid:
 					title_id = title_id + '_1'
-			userlike = User.objects.get(username = request.user.username)
 			wiki = Wiki(
 				user = request.user,
 				title = inp['title'],
@@ -126,6 +127,7 @@ def createwiki(request):
 				lessontype = inp['lessontype'],
 				like = 0,
 				)
+			wiki.userlike.add(request.user)
 			wiki.save()
 			return HttpResponseRedirect("/"+ title_id)
 	else:
@@ -178,7 +180,10 @@ def deletewiki(request, title_id):
 def likewiki(request):
 	if 'titleid' in request.GET:
 		titleid = request.GET['titleid']
-		wiki = Wiki.objects.get(pk = titleid)
-		wiki.like +=1
-		wiki.save()
+		wiki = get_object_or_404(Wiki,pk = titleid)
+		user_like = wiki.userlike.filter(username = request.user.username)
+		if not user_like:
+			wiki.like +=1
+			wiki.userlike.add(request.user)
+			wiki.save()
 	return HttpResponseRedirect("/wiki/main")
