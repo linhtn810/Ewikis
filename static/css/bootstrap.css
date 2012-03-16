@@ -1,4 +1,4 @@
-/*!
+/*
  * Bootstrap v2.0.1
  *
  * Copyright 2012 Twitter, Inc
@@ -7,30 +7,55 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
-
+.avatar{
+	width: auto;
+}
+.avatarimage{
+	float: left;
+	margin-right: 10px;
+	width: 22px;
+	height: 22px;
+}
 
 .fontsize{
-	font-size:20px;
-	font-family:Arial
+	font-size:18px;
+	font-family:Arial;
+	line-height: 200%;
+	
 }
 .fontsize p{
-	font-size: 20px;
-	font-family:Arial
-	line-height: 50px;
+	font-size: 18px;
+	font-family:Arial;
+	line-height: 200%;
 }
-/*section#main {
-    margin: 10px 15px;
-    background-color: #FFFFFF;
-    border: #cccccc solid thin;
-	width: auto;
-	height: auto;
-}*/
+
 div.sectitle {
-    margin: 20px 20px 20px 0px;
+	color: #fff;
+    margin: 20px 5px 0px 0px;
+	padding: 0px 10px 20px 10px;
+    background-color: #e3e3e3;
+    border: #cccccc solid thin;
+	background-image: -webkit-linear-gradient(top, rgb(249, 249, 249), rgb(240, 240, 240));
+	width: auto;
+	height: 20px;
+}
+.sectitle h2{
+	color:#6d6d6d;
+	text-shadow:0px 1px 0px #e3e3e3
+}
+.editicon{
+	padding: 5px 0px 0px 0px;
+}
+div.content {
+    margin: 0px 5px 5px 0px;
 	padding: 10px 10px 10px 10px;
     background-color: #fff;
-    border: #cccccc solid thin;
-    border-radius: 3px;
+ 	background-image: -webkit-linear-gradient(top, rgb(249, 249, 249), rgb(240, 240, 240));
+	
+    border-top: none;
+    border-right: #cccccc solid thin;
+    border-bottom: #cccccc solid thin;
+	border-left: #cccccc solid thin;
 	width: auto;
 	height: auto;
 }

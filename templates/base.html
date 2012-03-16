@@ -15,18 +15,34 @@
 					<li class="divider-vertical"></li>
 	              	<li><a href="#">Wikis</a></li>
 					<li class="divider-vertical"></li>
-	              	<li><a href="#about">Help</a></li>
-					<li class="divider-vertical"></li>
 	              	<li><a href="#contact">About</a></li>
 					<li class="divider-vertical"></li>
+					{% if not user.is_authenticated %}
+	              	<li><a href="#about">Help</a></li>
+					<li class="divider-vertical"></li>
+					{%else%}
+					<li><a href="#about">Account</a></li>
+					<li class="divider-vertical"></li>
+					{%endif%}
 	            </ul>
 	            <div class="navbar-text pull-right">
+				{% if not user.is_authenticated %}
 	            	<ul class="nav">
 						<li class="divider-vertical"></li>
-		              <li><a href="#about">Signup</a></li>
+		               <li><a href="#about">Signup</a></li>
 						<li class="divider-vertical"></li>
 		              <li><a href="#contact">Login</a></li>
 				    </ul>
+				{%else%}
+				<ul class="nav">
+					<li class="divider-vertical"></li>
+	              	<li class = "avatar"><a href="#"><image class ="avatarimage" src="http://img.informe.com/img/thumbs/g/goflow.alwaysdata.net_medium.jpg"/>{{user}}</a></li>
+					<li class="divider-vertical"></li>
+	              	<li><a href="#about">Help</a></li>
+					<li class="divider-vertical"></li>
+	              <li><a href="#">Logout</a></li>
+			    </ul>
+				{%endif%}
 	            </div>
 	          </div><!--/.nav-collapse -->
 	        </div>
