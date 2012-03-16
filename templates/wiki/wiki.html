@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load markup%}
+{%block ative1%}"active"{%endblock%}
+{% block content%}
+		<div class = "row-fluid">
+			<div class = "span10">
+				<h1>{{wiki.title}}</h1>
+			<div class = "row-fluid">
+				<div class = "span5">
+				<span class="label label-info"><b >{{wiki.like}}</b></span>
+				{% if not userlike %}
+				<span class="label label-warning"><a class = "like" href="/wiki/like/?titleid={{wiki.titleid}}" >Like</a></span>
+				{%else%}
+				<span class="label label-success">Like</span>
+				{%endif%}
+				
+				</div>
+				</div>
+			</div>
+			<!---<div class = "span2">
+			<a class="btn btn-small btn-danger" href="/{{wiki.titleid}}/editwiki">
+				<i class="icon-pencil"> </i>Edit Wiki</a>
+			</div>-->
+		</div>
+	{%for sec in section%}
+	<div class = "sectitle">
+		<div class = "row-fluid">
+			<div class = "span11">
+				<h2>{{sec.title}}</h2></a>
+			</div>
+			<div class = "editicon span1">
+			{% if user == wiki.user %}
+				<div class="btn-group">
+			        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i> <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+			            <li><a href="/{{wiki.titleid}}/{{sec.id}}/edit"><i class="icon-pencil"> </i>Edit</a></li>
+			            <li><a href="/{{wiki.titleid}}/deletesection/?id={{sec.id}}"><i class="icon-trash"> </i>Delete</a></li>
+			         </ul>
+				</div>
+			{% endif %}
+			</div>
+		</div>
+		</div>
+		<div class = "content">
+		<div class = "row-fluid">
+			<div class = "span12">
+				<div class = "fontsize">{{sec.content_markdown|markdown}}</div>
+			</div>
+		</div>
+		</div>
+		{%endfor%}		
+{% endblock %}
+		<script>
+			$("a.like").click(function(){
+				var curr_elem = $(this);
+				$.get($(this).attr('href'), function(data)),
+					var my_div = $(curr_elem).parent().parent().find("b");
+					my_div.text(my_div.text()*1 + 1);
+				});
+				return false;
+			});
+		   $('.dropdown-toggle').dropdown();
+		</script>		
