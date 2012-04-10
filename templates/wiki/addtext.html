@@ -1,10 +1,21 @@
 {% extends "base.html"%}
 {% block content%}
-	{% if user == wiki.user%}
+	{% if user.is_authenticated%}
   	<form name="Add text" action = "." method ='POST'>
     	{% csrf_token %} 
-  		{{textform.as_p}}
-		<input type="submit" value = "Submit">
+    	<div class="addtext" >
+  		<!--{{textform.as_p}}-->
+  		<span class = "title-label"><span style="position: absolute;margin: 8px 10px 10px 15px;">Title</span>
+  		{{textform.title}}
+
+		<label class = "content-label" for="id_content" >
+		<span style="position: absolute; margin: 4px 0px 0px 15px;">Content</span></label>
+		{{textform.content}}
+		</div>
+		<ul class = "button-group" style="position: absolute; top: 440px">
+		<li><a><input class = "button primary " type="submit" style="font-size: 14px;" value = "Save"/></a></li>
+		<li><a href = "/{{wiki.titleid}}"class = "button primary "style="font-size: 14px;">Cancel</a></li>
+		</ul>
 	</form>
 	{% endif %}
  

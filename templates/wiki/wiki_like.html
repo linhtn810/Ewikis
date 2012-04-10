@@ -1,0 +1,7 @@
+
+{% if user.is_authenticated and not userlike %}
+	<span class="like-click label label-warning" >{{wiki.like}} Like{{wiki.like|pluralize:"s"}}</span>
+{%else%}
+	<span class="label label-success" >{{wiki.like}} Like{{wiki.like|pluralize:"s"}}</span>
+	{%endif%}
+</ul>

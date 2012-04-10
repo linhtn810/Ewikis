@@ -1,0 +1,6 @@
+<h1> Edit {{wiki.title}}</h1>
+	<form id ="save-form-test" name="Edit" action = "." method ='POST'>
+	{% csrf_token %}
+	{{textform.as_p}}
+	<input type="submit" value = "Save">
+</form>

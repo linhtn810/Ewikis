@@ -1,12 +1,14 @@
 {% extends "base.html"%}
 {% block content%}
-	<div class = "editposi">
+	{% if user.is_authenticated %}
 	<h1> Create Wiki</h1>
 	<form name="Edit" action = "." method ='POST'>
 		{% csrf_token %}
 		{{form.as_p}}
 		<input type="submit" value = "Submit">
-	
 	</form>
-	</div>
+	{% else %}
+		<h1> You need logging to Create new wikis</h1>
+	{%endif%}
+
 {% endblock %}

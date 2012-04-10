@@ -1,121 +1,94 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-   <head>
-	<link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css" />
-	<link rel="stylesheet" href="/static/css/bootstrap-responsive.css"type="text/css" />
-</head>
-<body>
-	<div class="navbar">
-	      <div class="navbar-inner">
-	        <div class="container-fluid">
-	          <h2><a class="brand" href="#">Engrade Wikis</a></h2>
-	          <div class="nav-collapse">
-	            <ul class="nav">
-					<li class="divider-vertical"></li>
-	              	<li><a href="#">Wikis</a></li>
-					<li class="divider-vertical"></li>
-	              	<li><a href="#contact">About</a></li>
-					<li class="divider-vertical"></li>
-					{% if not user.is_authenticated %}
-	              	<li><a href="#about">Help</a></li>
-					<li class="divider-vertical"></li>
-					{%else%}
-					<li><a href="#about">Account</a></li>
-					<li class="divider-vertical"></li>
-					{%endif%}
-	            </ul>
-	            <div class="navbar-text pull-right">
-				{% if not user.is_authenticated %}
-	            	<ul class="nav">
-						<li class="divider-vertical"></li>
-		               <li><a href="#about">Signup</a></li>
-						<li class="divider-vertical"></li>
-		              <li><a href="#contact">Login</a></li>
-				    </ul>
-				{%else%}
-				<ul class="nav">
-					<li class="divider-vertical"></li>
-	              	<li class = "avatar"><a href="#"><image class ="avatarimage" src="http://img.informe.com/img/thumbs/g/goflow.alwaysdata.net_medium.jpg"/>{{user}}</a></li>
-					<li class="divider-vertical"></li>
-	              	<li><a href="#about">Help</a></li>
-					<li class="divider-vertical"></li>
-	              <li><a href="#">Logout</a></li>
-			    </ul>
-				{%endif%}
-	            </div>
-	          </div><!--/.nav-collapse -->
-	        </div>
-	      </div>
-	    </div>
-	<!--MENU HEADER-->
-	<section id="main">
-	<div class="container-fluid">
-	  <div class="row-fluid">
-	    <div class="span2">
-			<div class="topRow"><span class="topRowtext">Option</span></div>
-			{% if user.is_authenticated %}
-				<div class = "creatwiki">
-					<a class ="btn btn-large" href="/wiki/create">
-					<i class="icon-plus icon-black"></i>New Wiki</a>
-				</div>
-			{%else%}
-			<p class = "topRowcontent">Create and share free online wikis for your classroom in just minutes: Signup or Login</p>
-			{%endif%}
-			<li class="divider"></li><!--end Option-->
-			
-			<div class="topRow"><span class="topRowtext">Categories</span></div>
-			<li class="divider"></li>
-		</div>
-			<!---<div class ="sidebar-nav">
-			<ul class="nav nav-list">
-				<li class="nav-header">Create</li>
-				<a class ="btn btn-large" href="/wiki/create">
-				<i class="icon-plus icon-black"></i>New Wiki</a>
-	          <li class="nav-header">Engrade Wikis</li>
-	          <li class={%block ative1%}{%endblock%}><a href="/wiki/main/"><i class="icon-home"></i> Home</a></li>
-	          <li class={%block ative2%}{%endblock%}><a href="/{{wiki.titleid}}/addimage"><i class="icon-book"></i> Library</a></li>
-	          <li class=""><a href="#"><i class="icon-pencil"></i> Applications</a></li>
-				<li class="nav-header">Account Manager</li>
-	          <li><a href="#"><i class="icon-user"></i> Profile</a></li>
-	          <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
-	          <li><a href="#"><i class="icon-flag"></i> Help</a></li>
-			  <li class="nav-header">Add other section</li>
-							<div class="btn-group">
-					          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-plus icon-black"></i>
-								Add <span class="caret"></span>
-								</a>
-					          <ul class="dropdown-menu">
-					            <li><a href="/{{wiki.titleid}}/addtext">Add section</a></li>
-					            <li><a href="/{{wiki.titleid}}/addimage">Add image</a></li>
-					          </ul>
-					        </div>							
-	        </ul>
-		</div>
-		</div>-->
-		<div class="span10">
-	     {% block content %}{% endblock %}
-	    </div>
-	  </div>
-	</div>
-	</section>				
+{% extends "base_original.html" %}
 
-</body>
-	<script src="/static/js/bootstrap.js"></script>
-	<script src="/static/js/jquery-latest.js"></script>
-	<script src="/static/js/bootstrap-dropdown.js"></script>
-	<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
-	    extensions: ["tex2jax.js"],
-	    jax: ["input/TeX", "output/HTML-CSS"],
-	    tex2jax: {
-	      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-	      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-	      processEscapes: true
-	    },
-	    "HTML-CSS": { availableFonts: ["TeX"] }
-	  });
-	</script>
-	<script type="text/javascript" src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-	</script>
-</html>
+{% load gravatar %}
+
+
+
+{% block account %}
+<div class="navbar-text pull-right">
+    {% if not user.is_authenticated %}
+        <ul class="nav">
+            <li><a href="/user/register">Join now!</a></li>
+            <li ><a href="/user/login">Login</a></li>
+        </ul>
+    {%else%}
+        <div style="margin-right: 20px">
+        <div id="userbox">
+            <ul id="user">
+                <a href="https://github.com/buihuuloc"><img height="20" src="{% gravatar_url user.email %}" width="20"></a>
+                <li style="list-style: none"><a href="/wiki/main" styl="text-decoration = none">{{user}}</a></li>
+            </ul>
+        </div>
+        <ul id="user-links" style="margin-top:6px; padding: 1px 0px;">
+            <li><a href="/user/edit_profile/" id="settings" rel="tooltip" data-original-title="Account Settings"><span class="mini-icon account-settings"></span></a></li>
+            <li><a rel="tooltip" data-original-title="Click to logout" href="/user/logout" data-method="post" id="logout" class="tooltipped downwards" original-title="Log Out"><span class="mini-icon logout"></span></a></li>
+        </ul>
+    {%endif%}
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block wiki_menu_back_main %}
+<div class="row">
+    <div class="span12">
+        <ul class="breadcrumbs">
+            <li><a href="/wiki/main">All wiki</a></li>
+            {%block breadcrumbs%}{%endblock breadcrumbs%}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block wiki_footer_copyright %}
+    <p>Designed and built with all the love in the world <a href="http://twitter.com/twitter" target="_blank">@twitter</a> by <a href="http://twitter.com/mdo" target="_blank">@mdo</a> and <a href="http://twitter.com/fat" target="_blank">@fat</a>.</p>
+    <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Apache License v2.0</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+    <p>Icons from <a href="http://glyphicons.com">Glyphicons Free</a>, licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+{% endblock %}
+
+
+
+{% block wiki_sidebar %}
+    <div class="sidebar-nav" style="
+												margin-top: 0px;
+												border-left: 1px solid #e3e3e3;
+												border-right: 1px solid #e3e3e3;
+												border-top: 3px solid #e3e3e3;
+												border-bottom: 3px solid #e3e3e3;">
+        {%block userinfo%}{%endblock userinfo%}
+        <ul class="nav nav-list" style="
+		            							font-weight: bold;
+		            							margin:10px 2px 0px 2px;">
+            <li class="nav-header"><h5>Option</h5></li>
+            {%block option%}{%endblock option%}
+        </ul>
+        <div style="
+		            				margin:10px 0px 10px 0px;
+		            				width:100%;border-bottom:3px solid #e3e3e3;">
+        </div>
+
+        <ul class="nav nav-list" style="font-weight: bold;
+													margin:10px 2px 10px 2px;">
+            <li class="nav-header"><h5>Category</h5></li>
+            <ul class="nav nav-list">
+                <li class="active"><a href="http://wikis.engrade.com/dir/all"><i class="icon-home icon-white"></i>All Subjects</a></li>
+                <li><a href="http://wikis.engrade.com/dir/art"><i class="icon-gift"></i>Art</a></li>
+                <li><a href="http://wikis.engrade.com/dir/business"><i class="icon-folder-open"></i>Business &amp; Economics</a></li>
+                <li><a href="http://wikis.engrade.com/dir/computers"><i class="icon-folder-open"></i>Computer Science</a></li>
+                <li><a href="http://wikis.engrade.com/dir/geography"><i class="icon-eye-open"></i>Geography</a></li>
+                <li><a href="http://wikis.engrade.com/dir/government"><i class="icon-list-alt"></i>Government &amp; Politics</a></li>
+                <li><a href="http://wikis.engrade.com/dir/history"><i class="icon-folder-open"></i>History</a></li>
+                <li><a href="http://wikis.engrade.com/dir/math"><i class="icon-film"></i>Film</a></li>
+                <li><a href="http://wikis.engrade.com/dir/music"><i class="icon-music"></i>Music</a></li>
+                <li><a href="http://wikis.engrade.com/dir/language"><i class="icon-folder-open"></i>Foreign Language</a></li>
+                <li><a href="http://wikis.engrade.com/dir/languagearts"><i class="icon-folder-open"></i>English/Language Arts</a></li>
+                <li><a href="http://wikis.engrade.com/dir/science"><i class="icon-facetime-video"></i>Science</a></li>
+                <li><a href="http://wikis.engrade.com/dir/sports"><i class="icon-tint"></i>PE &amp; Health</a></li>
+                <li><a href="http://wikis.engrade.com/dir/religion"><i class="icon-road"></i>Religion</a></li>
+                <ul/>
+            </ul>
+    </div>
+{% endblock %}
