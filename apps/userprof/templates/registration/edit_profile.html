@@ -1,0 +1,31 @@
+{% extends "base_original.html" %}
+
+{% load markup %}
+
+{% load gravatar %}
+
+
+{% block wiki_sidebar %}
+    <h2>Edit profile</h2>
+    <div class="well">
+        <img src="{% gravatar_url user.email %}?s=200.jpg" style="max-width: 100%;"/><br />
+        <ul>
+            <li>To change your avatar, you have to <a href="http://gravatar.com/emails/">change your gravatar</a> or <a href="http://gravatar.com/gravatars/new">upload new one</a>.</li>
+            <li>If you want to change your password, go to <a href="/change_password">this page</a>.</li>
+        </ul>
+    </div>
+{% endblock %}
+
+
+
+{% block content %}
+    {% if form.errors %}
+        <p>There were some errors with your submission!!!</p>
+    {% endif %}
+<form method="post" action=".">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="/"/>
+    <input type="submit" value="Done" class="btn btn-info"/>
+    <a href="/" class="btn">Cancel</a>
+</form>
+{% endblock %}
