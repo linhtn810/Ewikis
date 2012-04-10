@@ -1,0 +1,36 @@
+{% extends "base_original.html" %}
+{% load gravatar %}
+
+
+{% block account %}
+    <div class="navbar-text pull-right">
+        {% if user.is_authenticated %}
+            Hi
+            <a href="/user/{{ profile.user.username }}/">
+            {{ profile.user.first_name }} {{ profile.user.last_name }}</a>!
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+{% block wiki_sidebar %}
+    {% if user.is_authenticated %}
+        <div class="well">
+            {% include "profile.html" %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+
+{% block content %}
+    {% if user.is_authenticated %}
+        Hi
+    {% else %}
+        Why dont you <a href="/user/login/">login</a> or <a href="/user/register/">create</a> an account first?<br />
+        Then you can create your own wiki!<br />
+        At this time, you can only surf our <a href="/wiki/main">public wiki</a> :D
+    {% endif %}
+{% endblock %}
+

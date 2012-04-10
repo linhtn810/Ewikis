@@ -1,20 +1,110 @@
 {% extends "base.html" %}
-{%block ative1%}"active"{%endblock%}
+{%block extendcss%}		
+	<link rel="stylesheet" href="/static/css/bootstrap-responsive1.css"type="text/css" />
+{%endblock extendcss%}
+
+{%block title%}Engrade Wikis{%endblock title%}
+{%block option%}
+	{%if not user.is_authenticated%}
+	<p style="color:#999">Create and share free online wikis for your classroom in just minutes:<br/> 
+	<div class="btn-group">
+		<button href="https://github.com/twitter/bootstrap/" class="btn btn-info">Signup</button>
+		<button href="https://github.com/twitter/bootstrap/" class="btn">Login</button>
+	</div>
+	{%else%}
+	<a style="margin:auto 40px" href="/wiki/create" class="g-button blue"><i class="icon-plus icon-white"></i>New Wiki</a>
+	</br>
+	{%endif%}
+{%endblock option%}
+
 {%block content %}
-	{% for wi in wiki %}
-		<div class = "row-fluid">
-			<div class = "span3">
-           		<h3><a href = "/{{wi.titleid}}/">{{wi.title}}</a></h3>
-				<div class = "row-fluid">
-					<div class = "span5">
-					<span class="label label-info"> {{wi.like}}</span>
-					<!--<span class="label label-warning"><a href="/wiki/like/?titleid={{wi.titleid}}" >Like</a></span>-->
-					</div>
-					</div>
-			</div>
-			<!---<div class = "span9">
-				<a class = "btn btn-small btn-warning" href ="/wiki/deletewiki/?id={{wi.titleid}}">Delete Wiki</a>
-			</div>-->
-		</div>
-	{% endfor%}
+<div class="row-fluid" style="width: 960px; margin: 10px 10px">
+	<div class="span4">
+	  <h3>Math</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   {%endfor%}
+	</div><!--/span-->
+	<div class="span4">
+	  <h3>Arts</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   	{%endfor%}
+	</div><!--/span-->
+	<div class="span4">
+	  <h3>Foreign Language</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   	{%endfor%}
+	</div><!--/span-->
+</div><!--/row-->
+
+<div class="row-fluid" style="width: 960px; margin: 60px 10px">
+	<div class="span4">
+	  <h3>Sicence</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   	{%endfor%}
+	</div><!--/span-->
+	<div class="span4">
+	  <h3>Business & Economics</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   	{%endfor%}
+	</div><!--/span-->
+	<div class="span4">
+	  <h3>Computer Science</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   	{%endfor%}
+	</div><!--/span-->
+</div><!--/row-->
+
+<div class="row-fluid" style="width: 960px; margin: 60px 10px">
+	<div class="span4">
+	  <h3>Geography</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   	{%endfor%}
+	</div><!--/span-->
+	<div class="span4">
+	  <h3>History</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   	{%endfor%}
+	</div><!--/span-->
+	<div class="span4">
+	  <h3>Goverments & Politics</h3>
+	  	{% for wi in wiki%}
+	  	<div style="margin-bottom: 4px">
+	  	<span class="label label-success" >{{wi.like}} <i class="icon-star icon-white"></i></span>
+		<a href="/{{wi.titleid}}" style="text-decoration: none; font-size: 14px; font-weight: bold">{{wi.title}}</a>
+	   	</div>
+	   	{%endfor%}
+	</div><!--/span-->
+</div><!--/row-->
 {% endblock %}

@@ -1,0 +1,27 @@
+{% load gravatar %}
+<img src="{% gravatar_url profile.user.email %}?s=200.jpg" style="max-width: 100%;"/><br/>
+{% if profile.user.get_full_name %}
+<h2>{{ profile.user.get_full_name }}</h2>
+{% endif %}
+
+Member since:
+{{ profile.user.date_joined|date:"d M y" }}.<br/>
+<ul>
+{% if profile.website_blog %}
+    <li>
+        Website/blog: <a href="{{ profile.website_blog }}">{{ profile.website_blog }}</a>
+    </li>
+{% endif %}
+
+{% if profile.location %}
+    <li>
+        Location: {{ profile.location }}.
+    </li>
+{% endif %}
+
+{% if profile.about %}
+    <li>
+        About {{ profile.user.username }}: {{ profile.about }}.
+    </li>
+{% endif %}
+</ul>

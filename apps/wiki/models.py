@@ -78,22 +78,9 @@ class Wiki(models.Model):
 	userlike = models.ManyToManyField(User,blank=True,null=True)
 	def __unicode__(self):
 		return self.title
-class PageOne(models.Model):
-	parent = models.ForeignKey(Wiki)
-	title = models.CharField('Title', max_length = 40, primary_key = True)
-	titleid = models.CharField('Title ID', max_length = 40)
-	def __unicode__(self):
-		return self.title
-class PageTwo(models.Model):
-	parent = models.ForeignKey(PageOne)
-	title = models.CharField('Title', max_length = 40, primary_key = True)
-	titleid = models.CharField('Title ID', max_length = 40)
-	def __unicode__(self):
-		return self.title
+		
 class Section(models.Model):
-	wiki = models.ManyToManyField(Wiki)
-	pageone = models.ManyToManyField(PageOne)
-	pagetwo = models.ManyToManyField(PageTwo)
+	wiki = models.ForeignKey(Wiki)
 	title = models.CharField('Title', max_length = 40)
 	content = models.TextField("Content",error_messages={'blank': 'NotNull','required': "My custom error"})
 	content_markdown = models.TextField("Content Markdown")
@@ -103,8 +90,7 @@ class Section(models.Model):
 		import markdown
 		md = markdown.Markdown(extensions =
 								['wikilinks','mdx_video','urlize',
-									'nl2br','addsections',
-								],
+									'nl2br',],
 							   safe_mode = "escape"
 							  )
 		self.content_markdown = md.convert(self.content)

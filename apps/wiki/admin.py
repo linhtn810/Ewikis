@@ -1,7 +1,10 @@
 from django.contrib import admin
 from apps.wiki.models import *
-admin.site.register(Wiki)
-admin.site.register(Section)
-admin.site.register(PageOne)
-admin.site.register(PageTwo)
+class SectionInline(admin.StackedInline):
+	model = Section
+	extra = 1
+class WikiAdmin(admin.ModelAdmin):
+	inlines = [SectionInline]
+
+admin.site.register(Wiki, WikiAdmin)
 admin.site.register(Image)

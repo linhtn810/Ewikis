@@ -96,6 +96,11 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -107,7 +112,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'Ewikis.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(SITE_ROOT,'templates')
+    os.path.join(SITE_ROOT,'templates'),
+    os.path.join(SITE_ROOT, 'apps/userprof/templates')
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -121,9 +127,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.wiki',
+    'apps.userprof',
 	'django.contrib.markup',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'django_gravatar',
+    # 'pure_pagination',
+    # 'gunicorn',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -150,3 +160,5 @@ LOGGING = {
         },
     }
 }
+LOGIN_REDIRECT_URL = '/user/login'
+LOGIN_URL = '/user/login'

@@ -1,0 +1,13 @@
+{% extends "base_original.html" %}
+{% load markup %}
+{% block wiki_sidebar %}
+    <h2>Register</h2>
+    to create your own wiki :)
+{% endblock %}
+{% block content %}
+<form method="POST" action=".">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register" class="btn btn-info"/>
+    <a href="/" class="btn">Later</a>
+</form>
+{% endblock %}

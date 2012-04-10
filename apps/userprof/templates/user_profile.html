@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">{% if profile %}
+            {% if user.is_authenticated %}
+            {% if owner %}
+            Hi <a href="/user/{{ profile.user.username }}/">{{ profile.user.username }}</a>!
+            (<a href="user/change_password/">change password</a>)
+            (<a href="user/edit_profile/">edit profile</a>)
+            (<a href="/logout/">logout</a>)<br/>
+            {% endif %}
+            {% include "profile.html" %}
+            {% else %}
+            you're at {{ profile.user.username }}'s page<br>
+            Member since:
+            {{ profile.user.date_joined|date:"d M y" }}.<br/>
+            Y U NO <a href="/login/">login</a> or <a href="/register/">create</a> a clone first?
+            {% endif %}
+            {% else %}
+            The profile you are looking for not found! Maybe search tool will help you :(<br>
+            <a href="/">back</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
