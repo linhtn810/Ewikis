@@ -5,8 +5,13 @@ admin.autodiscover()
 import settings
 
 urlpatterns = patterns('',
+	#Thai Linh
+	url(r'^', include('apps.userprof.urls')),
+	
 	url(r'^',include('apps.wiki.urls')),
 	url(r'^wiki/admin/',include(admin.site.urls)),
+
 	(r'^static/(?P<path>.*)$','django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 	(r'^media/(?P<path>.*)$','django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),	
+
 )
